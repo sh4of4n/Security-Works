@@ -6,6 +6,7 @@ import Checkbox from "../../components/Checkbox";
 import ButtonSF from "./ButtonSF";
 import BrowseScreenSFCss from "styles/V1-ShaoFan/BrowseScreenSFCss";
 import ButtonSFCss from "styles/V1-ShaoFan/ButtonSFCss";
+import DropdownSFCss from "./DropdownSFCss";
 
 interface DropdownCheckboxProps {
     label?: string;
@@ -56,12 +57,12 @@ interface DropdownCheckboxProps {
             </Dropdown.Toggle>
     
             <Dropdown.Menu align="end">
-              <div
+              <Container
                 className="dropdown-checkbox-options" 
                 onClick={(e) => e.stopPropagation()}
               >
                 {options.map((option) => (
-                  <div key={option.value}>
+                  <Container key={option.value}>
                     <Checkbox
                       value={selectedOptions.includes(option.value)}
                       label={option.value}
@@ -70,13 +71,13 @@ interface DropdownCheckboxProps {
                         handleSelectedOptions(option.value, isChecked)
                       }
                     />
-                  </div>
+                  </Container>
                 ))}
-              </div>
+              </Container>
     
-              <Container css={ButtonSFCss(theme)} >
-                <ButtonSF onClick={handleSelectAllOptions} label="Select All" className="select-all-button"/>
-                <ButtonSF onClick={handleClearAllOptions} label="Clear All" className="clear-all-button"/>
+              <Container >
+                <ButtonSF onClick={handleSelectAllOptions} css={DropdownSFCss(theme)} label="Select All" className="select-all-button"/>
+                <ButtonSF onClick={handleClearAllOptions} css={DropdownSFCss(theme)} label="Clear All" className="clear-all-button"/>
               </Container>
             </Dropdown.Menu>
           </Dropdown>

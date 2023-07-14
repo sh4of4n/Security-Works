@@ -5,6 +5,7 @@ import {
     CalendarDate,
     Cash,
     Filter,
+    FunnelFill,
     GeoAlt,
     ListOl,
     PencilSquare,
@@ -29,6 +30,8 @@ import ModalAddSF from "styles/V2-ShaoFan/ModalAddSF";
 import ModalAddSFCss from "styles/V2-ShaoFan/ModalAddSFCss";
 import ModalConfirmSF from "styles/V2-ShaoFan/ModalConfirmSF";
 import ModalConfirmSFCss from "styles/V2-ShaoFan/ModalConfirmSFCss";
+import DropdownCheckboxSF from "styles/V2-ShaoFan/DropdownCheckboxSF";
+import DropdownSFCss from "styles/V2-ShaoFan/DropdownSFCss";
 
 
 const V2BrowseScreenSF = () => {
@@ -121,6 +124,7 @@ const V2BrowseScreenSF = () => {
     const [show, setShow] = useState(false);
     const [showAddModal, setShowAddModal] = useState(false);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [showSearchModal, setShowSearchModal] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const { theme } = useContext(PartnerContext);
@@ -144,6 +148,10 @@ const V2BrowseScreenSF = () => {
         }));
       };
 
+      const handleSelectedOptions = (selectedValue:any) => {
+        console.log("Selected option:", selectedValue);
+      }
+
     return (
         <PageTemplate>
             <Container>
@@ -151,6 +159,24 @@ const V2BrowseScreenSF = () => {
                     SECURITYWORKS FRAME
                 </header>
                 {/* <Breadcrumb css={V2BrowseScreenSFCss(theme)} className="breadcrumb" children="" active="Browse"/> */}
+                <ButtonSF 
+                    css={V2BrowseScreenSFCss}
+                    className="searchbutton"
+                    label={"Search By"}
+                    iconRight={<Search css={V2BrowseScreenSFCss} className="search-icon"/>} 
+                    onClick={()=>{}}                
+                />
+
+                <DropdownCheckboxSF
+                    css={DropdownSFCss(theme)}
+                    onSelect={handleSelectedOptions}
+                    label="Filter Column by"
+                    icon={<FunnelFill/>}
+                    className="filterdropdown" 
+                    options={filterOptions} 
+                    disabled={false}
+                />
+
                 <ButtonSF
                     label="Filter"
                     iconLeft={<Filter />}
@@ -166,6 +192,8 @@ const V2BrowseScreenSF = () => {
                     leftIcon={<Search />}
                     onChange={(e) => { setPwd(e) }}
                 /> */}
+
+            
             </Container>
 
             <TableSF

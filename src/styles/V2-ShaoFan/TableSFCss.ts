@@ -18,6 +18,7 @@ const TableSFCss = (theme: Theme) => css`
         table-layout: auto;
         width: 100%;
         border-collapse: collapse;
+        margin-top:50px;
         box-shadow: rgba(0, 0, 0, 0.05) 0rem 0rem 0.825rem;
     }
 
@@ -32,7 +33,7 @@ const TableSFCss = (theme: Theme) => css`
     }
 
     & .mb-0 tbody tr:nth-of-type(odd) td {
-        background-color: #f0ffff;
+        background-color: #e6ffff;
         font-size: 0.85rem;
     }
 

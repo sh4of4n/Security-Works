@@ -5,10 +5,17 @@ const V2BrowseScreenSFCss = (theme: Theme) => css`
 
     color:${theme.txt};
 
-    &.searchbar{
-        float: right;
-        width: 30%;
-        margin-left: -10px;
+    &.searchbutton{
+        margin-left:10px;
+        color: white;
+        float: left;
+        font-weight: bold;
+    }
+
+    &.searchbutton .search-icon{
+        margin-left: 5px;
+        margin-bottom: 5px;
+        color: white;
     }
 
     &.title{
@@ -21,6 +28,7 @@ const V2BrowseScreenSFCss = (theme: Theme) => css`
         float: right;
         color: white;
         font-weight: bold;
+        margin-right: 10px;
     }
     
     &.bodymargin{
@@ -68,6 +76,10 @@ const V2BrowseScreenSFCss = (theme: Theme) => css`
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
         text-decoration: none;
+    }
+
+    &.pluscircle:hover{
+        background-color: #3385ff;
     }
 
     &.export-button{
