@@ -1,0 +1,39 @@
+/*
+--------------------------------------- CHANGE LOG ---------------------------------------
+Date(DD/MM/YY)        Author    Version         Remarks
+------------------------------------------------------------------------------------------
+19/06/2023            LimSF    1.0.0           - Create Button component
+*/
+
+import React from "react";
+import { Button as BSButton, Container} from "react-bootstrap";
+
+interface ButtonProps {
+  label: string;
+  onClick: () => void;
+  disabled?: boolean;
+  className?: string;
+  icon?: string;
+}
+
+const Button = ({
+  label,
+  onClick,
+  disabled = false,
+  className,
+  icon,
+}: ButtonProps) => {
+  return (
+      <BSButton
+        className={className}
+        disabled={disabled}
+        onClick={onClick}
+      >
+         {icon && <span className="icon">{icon}</span>}
+        <Container>{label}</Container>
+      </BSButton>
+  );
+};
+
+export default Button;
+

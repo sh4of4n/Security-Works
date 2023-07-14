@@ -1,0 +1,21 @@
+import { paths } from "routers/routes";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+
+import Playground from "pages/Playground";
+import Login from "pages/Login";
+import Browse from "pages/Browse";
+
+const RootRouter: React.FC<any> = () => {
+  return (
+    <Routes>
+      {/** ==================== PLAYGROUND ==================== */}
+      {<Route path={paths.Playground} element={<Playground />} />}
+      <Route path={paths.Login} element={<Login/>}/>
+      {/* -- to delete Browse screen */}
+      <Route path={paths.Browse} element={<Browse/>}/> 
+    </Routes>
+  );
+};
+
+export default RootRouter;

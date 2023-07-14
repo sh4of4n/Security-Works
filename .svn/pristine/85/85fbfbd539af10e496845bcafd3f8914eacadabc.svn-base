@@ -1,0 +1,238 @@
+/*
+--------------------------------------- CHANGE LOG ---------------------------------------
+Date(DD/MM/YY)        Author    Version         Remarks
+------------------------------------------------------------------------------------------
+21/06/2023            SawYN     1.0.0           - Create SideMenu component
+
+*/
+
+/** @jsxImportSource @emotion/react */
+import { RouteContext } from "contexts/RouteContext";
+import React, { Dispatch, SetStateAction, useContext, useState } from "react";
+import Text from "./Text";
+import { Accordion, Container, Dropdown } from "react-bootstrap";
+import { paths } from "routers/routes";
+import { FinexusLogo } from "./Images";
+import { PartnerContext } from "contexts/PartnerContext";
+import SideMenuCss from "styles/components/SideMenuCss";
+
+interface menuSubItem {
+  id?: number;
+  name: string;
+  route?: string;
+}
+
+interface menuItem {
+  navId?: string;
+  name: string;
+  route?: string;
+  subItems?: menuSubItem[];
+}
+
+interface SideMenuProps {
+  menuOpen: boolean;
+  setMenuOpen: Dispatch<SetStateAction<boolean>>;
+  className?: string;
+}
+
+const SideMenu = ({
+  menuOpen,
+  setMenuOpen,
+  className
+}: SideMenuProps) => {
+  const { theme } = useContext(PartnerContext);
+  const { goTo } = useContext(RouteContext); 
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(null);
+  const [subActive, setSubActive] = useState(null);
+  const [lastActive, setLastActive] = useState(null);
+
+  const menuItems: menuItem[] = [
+    {
+      navId: "0",
+      name: "Dashboard",
+      route: "/" + paths.Playground,
+    },
+    {
+      navId: "1",
+      name: "Services",
+      subItems: [
+        {
+          id: 0,
+          name: "Secure Payment Link",
+          route: "",
+        },
+        {
+          id: 1,
+          name: "Mobile Virtual Terminal",
+          route: "",
+        },
+      ],
+    },
+    {
+      navId: "2",
+      name: "BillsGate",
+      subItems: [
+        {
+          id: 0,
+          name: "Biller Maintenance",
+          route: "/" + paths.Playground,
+        },
+        {
+          id: 1,
+          name: "Bill Subject Maintenance",
+          route: "/" + paths.Playground,
+        },
+        {
+          id: 2,
+          name: "Bill Maintenance",
+          route: "/" + paths.Playground,
+        },
+        // {
+        //   id: 3,
+        //   name: "Sub Bill Type Maintenance",
+        //   route: "/" + paths.billMaintenance,
+        // },
+        {
+          id: 3,
+          name: "Bill Notification Matrix",
+          route: "/" + paths.Playground,
+        },
+        {
+          id: 4,
+          name: "Invoice Template Maintenance",
+          route: "/" + paths.Playground,
+        },
+        {
+          id: 5,
+          name: "Bill Processing Enquiry",
+          route: "/" + paths.Playground,
+        },
+        {
+          id: 6,
+          name: "Bill Enquiry",
+          route: "/" + paths.Playground,
+        },
+        {
+          id: 7,
+          name: "Bill Payment Enquiry",
+          route: "/" + paths.Playground,
+        },
+        {
+          id: 8,
+          name: "Receipt Template Maintenance",
+          route: "/" + paths.Playground,
+        },
+      ],
+    },
+    {
+      navId: "3",
+      name: "Transaction History",
+      route: "/" + paths.Playground,
+      subItems: [
+        {
+          id: 0,
+          name: "Biller Maintenance",
+          route: "/" + paths.Playground,
+        },
+        {
+          id: 1,
+          name: "Bill Subject Maintenance",
+          route: "/" + paths.Playground,
+        },
+        {
+          id: 2,
+          name: "Bill Maintenance",
+          route: "/" + paths.Login,
+        },
+      ]
+    },
+    {
+      navId: "4",
+      name: "Account Statement",
+      route: "/" + paths.Playground,
+    },
+    {
+      navId: "5",
+      name: "Help",
+      route: "",
+    }
+  ];
+
+  return (
+    <>
+    <Container css={SideMenuCss(theme)} className={`${className}`}> 
+      <Container className="p-0 d-flex flex-column justify-content-between h-100">
+        <Container className="p-0">
+          {menuItems.map((item, index) => {
+            return (
+              item.subItems ? 
+                <Accordion activeKey={open ? active:null}>
+                  <Accordion.Item 
+                    key={index} 
+                    eventKey={index.toString()} 
+                  >
+                    <Accordion.Header 
+                      className={active === index.toString() ? "sub-active" : ""}
+                      onClick={() => {
+                        setActive(index.toString());
+                        setOpen(true);
+
+                        if(open && active === index.toString()){
+                          setOpen(false);
+                        }
+                      }}
+                      >
+                      {/* {changeItemIconHandler} */}
+                      {item.name}
+                    </Accordion.Header>
+                    <Accordion.Body>
+                      {item.subItems.map((sub, subIndex) => {
+                        return (
+                          <Dropdown
+                            key={subIndex}
+                            onClick={() => {
+                              setOpen(true);
+                              goTo(sub.route);
+                              setSubActive(subIndex.toString());
+                              setLastActive(index.toString());
+                            }}
+                            className={subActive === subIndex.toString() && lastActive === index.toString() ?"active":""}
+                          >
+                            <Text label={sub.name} className="ms-3"/>
+                          </Dropdown>
+                        );
+                      })}
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
+
+              :
+                <Accordion key={index} activeKey={active}>
+                  <Accordion.Button
+                    onClick={() => {
+                      goTo(item.route);
+                      setActive(index.toString());
+                      setLastActive(index.toString())
+                      setOpen(false);
+                    }}
+                    className={active === index.toString() ? "active accordion-button-no-expand" : "accordion-button-no-expand"}
+                  >
+                    {/* {changeItemIconHandler} */}
+                    {item.name}
+                  </Accordion.Button>
+                </Accordion>
+            )
+          })}
+        </Container>
+        <Container className="app-nav-footer">
+          <Text label="@ 2023 FINEXUS Group" className="label" />
+          <FinexusLogo />
+        </Container>
+      </Container>
+    </Container>
+    </>
+  );
+}
+
+export default SideMenu;

@@ -1,0 +1,16 @@
+import { paths } from "routers/routes";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+
+import Playground from "pages/Playground";
+
+const RootRouter: React.FC<any> = () => {
+  return (
+    <Routes>
+      {/** ==================== PLAYGROUND ==================== */}
+      {<Route path={paths.Playground} element={<Playground />} />}
+    </Routes>
+  );
+};
+
+export default RootRouter;

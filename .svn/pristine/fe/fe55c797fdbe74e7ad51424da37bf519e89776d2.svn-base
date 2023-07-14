@@ -1,0 +1,150 @@
+/*
+--------------------------------------- CHANGE LOG ---------------------------------------
+Date(DD/MM/YY)        Author    Version         Remarks
+------------------------------------------------------------------------------------------
+03/03/2023            LeeSW     2.0.0           - Create App.scss 
+
+*/
+
+// ---------------------------------------------------------------------------------------------------- Fonts
+// @font-face {
+//   font-family: 'Lato-Thin';
+//   font-style: normal;
+//   font-weight: normal;
+//   src: url('../assets/fonts/Lato/lato-v23-latin-100.eot');
+//   src: url('../assets/fonts/Lato/lato-v23-latin-100.eot?#iefix') format('embedded-opentype'),
+//     url('../assets/fonts/Lato/lato-v23-latin-100.woff2') format('woff2'),
+//     url('../assets/fonts/Lato/lato-v23-latin-100.woff') format('woff'),
+//     url('../assets/fonts/Lato/lato-v23-latin-100.ttf') format('truetype'),
+//     url('../assets/fonts/Lato/lato-v23-latin-100.svg#Lato') format('svg');
+// }
+
+// @font-face {
+//   font-family: 'Lato-Thin-Italic';
+//   font-style: italic;
+//   font-weight: normal;
+//   src: url('../assets/fonts/Lato/lato-v23-latin-100italic.eot');
+//   src: url('../assets/fonts/Lato/lato-v23-latin-100italic.eot?#iefix') format('embedded-opentype'),
+//     url('../assets/fonts/Lato/lato-v23-latin-100italic.woff2') format('woff2'),
+//     url('../assets/fonts/Lato/lato-v23-latin-100italic.woff') format('woff'),
+//     url('../assets/fonts/Lato/lato-v23-latin-100italic.ttf') format('truetype'),
+//     url('../assets/fonts/Lato/lato-v23-latin-100italic.svg#Lato') format('svg');
+// }
+
+// @font-face {
+//   font-family: 'Lato-Light';
+//   font-style: normal;
+//   font-weight: normal;
+//   src: url('../assets/fonts/Lato/lato-v23-latin-300.eot');
+//   src: url('../assets/fonts/Lato/lato-v23-latin-300.eot?#iefix') format('embedded-opentype'),
+//     url('../assets/fonts/Lato/lato-v23-latin-300.woff2') format('woff2'),
+//     url('../assets/fonts/Lato/lato-v23-latin-300.woff') format('woff'),
+//     url('../assets/fonts/Lato/lato-v23-latin-300.ttf') format('truetype'),
+//     // url('../assets/fonts/Lato/lato-v23-latin-300.svg#Lato') format('svg');
+// }
+
+// @font-face {
+//   font-family: 'Lato-Light-Italic';
+//   font-style: italic;
+//   font-weight: normal;
+//   src: url('../assets/fonts/Lato/lato-v23-latin-300italic.eot');
+//   src: url('../assets/fonts/Lato/lato-v23-latin-300italic.eot?#iefix') format('embedded-opentype'),
+//     url('../assets/fonts/Lato/lato-v23-latin-300italic.woff2') format('woff2'),
+//     url('../assets/fonts/Lato/lato-v23-latin-300italic.woff') format('woff'),
+//     url('../assets/fonts/Lato/lato-v23-latin-300italic.ttf') format('truetype'),
+//     url('../assets/fonts/Lato/lato-v23-latin-300italic.svg#Lato') format('svg');
+// }
+
+// @font-face {
+//   font-family: 'Lato-Regular';
+//   font-style: normal;
+//   src: url('../assets/fonts/Lato/lato-v23-latin-regular.eot');
+//   src: url('../assets/fonts/Lato/lato-v23-latin-regular.eot?#iefix') format('embedded-opentype'),
+//     url('../assets/fonts/Lato/lato-v23-latin-regular.woff2') format('woff2'),
+//     url('../assets/fonts/Lato/lato-v23-latin-regular.woff') format('woff'),
+//     url('../assets/fonts/Lato/lato-v23-latin-regular.ttf') format('truetype'),
+//     // url('../assets/fonts/Lato/lato-v23-latin-regular.svg#Lato') format('svg');
+// }
+
+// @font-face {
+//   font-family: 'Lato-Regular-Italic';
+//   font-style: italic;
+//   font-weight: normal;
+//   src: url('../assets/fonts/Lato/lato-v23-latin-italic.eot');
+//   src: url('../assets/fonts/Lato/lato-v23-latin-italic.eot?#iefix') format('embedded-opentype'),
+//     url('../assets/fonts/Lato/lato-v23-latin-italic.woff2') format('woff2'),
+//     url('../assets/fonts/Lato/lato-v23-latin-italic.woff') format('woff'),
+//     url('../assets/fonts/Lato/lato-v23-latin-italic.ttf') format('truetype'),
+//     url('../assets/fonts/Lato/lato-v23-latin-italic.svg#Lato') format('svg');
+// }
+
+// @font-face {
+//   font-family: 'Lato-Bold';
+//   font-style: normal;
+//   font-weight: normal;
+//   src: url('../assets/fonts/Lato/lato-v23-latin-700.eot');
+//   src: url('../assets/fonts/Lato/lato-v23-latin-700.eot?#iefix') format('embedded-opentype'),
+//     url('../assets/fonts/Lato/lato-v23-latin-700.woff2') format('woff2'),
+//     url('../assets/fonts/Lato/lato-v23-latin-700.woff') format('woff'),
+//     url('../assets/fonts/Lato/lato-v23-latin-700.ttf') format('truetype'),
+//     // url('../assets/fonts/Lato/lato-v23-latin-700.svg#Lato') format('svg');
+// }
+
+// @font-face {
+//   font-family: 'Lato-Bold-Italic';
+//   font-style: italic;
+//   font-weight: normal;
+//   src: url('../assets/fonts/Lato/lato-v23-latin-700italic.eot');
+//   src: url('../assets/fonts/Lato/lato-v23-latin-700italic.eot?#iefix') format('embedded-opentype'),
+//     url('../assets/fonts/Lato/lato-v23-latin-700italic.woff2') format('woff2'),
+//     url('../assets/fonts/Lato/lato-v23-latin-700italic.woff') format('woff'),
+//     url('../assets/fonts/Lato/lato-v23-latin-700italic.ttf') format('truetype'),
+//     url('../assets/fonts/Lato/lato-v23-latin-700italic.svg#Lato') format('svg');
+// }
+
+// @font-face {
+//   font-family: 'Lato-Black';
+//   font-style: normal;
+//   font-weight: normal;
+//   src: url('../assets/fonts/Lato/lato-v23-latin-900.eot');
+//   src: url('../assets/fonts/Lato/lato-v23-latin-900.eot?#iefix') format('embedded-opentype'),
+//     url('../assets/fonts/Lato/lato-v23-latin-900.woff2') format('woff2'),
+//     url('../assets/fonts/Lato/lato-v23-latin-900.woff') format('woff'),
+//     url('../assets/fonts/Lato/lato-v23-latin-900.ttf') format('truetype'),
+//     url('../assets/fonts/Lato/lato-v23-latin-900.svg#Lato') format('svg');
+// }
+
+// @font-face {
+//   font-family: 'Lato-Black-Italic';
+//   font-style: italic;
+//   font-weight: normal;
+//   src: url('../assets/fonts/Lato/lato-v23-latin-900italic.eot');
+//   src: url('../assets/fonts/Lato/lato-v23-latin-900italic.eot?#iefix') format('embedded-opentype'),
+//     url('../assets/fonts/Lato/lato-v23-latin-900italic.woff2') format('woff2'),
+//     url('../assets/fonts/Lato/lato-v23-latin-900italic.woff') format('woff'),
+//     url('../assets/fonts/Lato/lato-v23-latin-900italic.ttf') format('truetype'),
+//     url('../assets/fonts/Lato/lato-v23-latin-900italic.svg#Lato') format('svg');
+// }
+
+// @font-face {
+//   font-family: 'Anja Nornal';
+//   font-style: normal;
+//   font-weight: normal;
+//   src: url('../assets/fonts/AnjaEliane/AnjaElianeAccent.woff') format('woff');
+// }
+
+// ---------------------------------------------------------------------------------------------------- Body Styling
+body {
+  background-color: rgb(248, 250, 253);
+  margin: auto;
+  min-width: 100%;
+  flex: 1;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+body .container {
+  max-width: 100%;
+}

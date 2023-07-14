@@ -1,0 +1,56 @@
+/*
+--------------------------------------- CHANGE LOG ---------------------------------------
+Date(DD/MM/YY)        Author    Version         Remarks
+------------------------------------------------------------------------------------------
+21/06/2023            SawYN     1.0.0           - Create PageTemplate component
+
+*/
+
+/** @jsxImportSource @emotion/react */
+import React, { useContext, useEffect, useState } from "react";
+import Header from "./Header";
+import SideMenu from "./SideMenu";
+import { Container } from "react-bootstrap";
+import { PartnerContext } from "contexts/PartnerContext";
+import PageTemplateCss from "styles/components/PageTemplateCss";
+
+interface PageTemplateProps {
+  children: JSX.Element | JSX.Element[]
+}
+
+const PageTemplate = ({children}:PageTemplateProps) => {
+  const { theme } = useContext(PartnerContext);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [windowSize, setWindowSize] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowSize(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  });
+
+  return (
+    <Container css={PageTemplateCss(theme)} className="p-0 d-flex flex-column">
+      <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen}/>
+
+      <Container className="p-0 d-flex">
+        <SideMenu 
+          menuOpen={menuOpen} 
+          className={(windowSize <= 991 && menuOpen) ? 
+            "sidemenu-open" : (windowSize > 992 ? "" : "sidemenu-hide")
+          }
+        />
+        <Container className={(windowSize <= 991 && menuOpen) ? "sidemenu-drop" : "d-none"}/>
+        <Container className="py-5 page-body">{children}</Container>
+      </Container>
+    </Container>
+  );
+}
+
+export default PageTemplate;

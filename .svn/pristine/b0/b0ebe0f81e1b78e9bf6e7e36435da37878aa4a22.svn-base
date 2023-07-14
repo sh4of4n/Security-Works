@@ -1,0 +1,6 @@
+export const paths = {
+  // ==================== PLAYGROUND ====================
+  Playground: "playground",
+  // Login: "login"
+  
+};

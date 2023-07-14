@@ -1,0 +1,29 @@
+import React from "react";
+import { Button as BSButton, Container} from "react-bootstrap";
+
+interface ButtonProps {
+  label: string;
+  onClick: () => void;
+  disabled?: boolean;
+  className?: string;
+}
+
+const Button = ({
+  label,
+  onClick,
+  disabled = false,
+  className,
+}: ButtonProps) => {
+  return (
+      <BSButton
+        className={className}
+        disabled={disabled}
+        onClick={onClick}
+      >
+        <Container>{label}</Container>
+      </BSButton>
+  );
+};
+
+export default Button;
+

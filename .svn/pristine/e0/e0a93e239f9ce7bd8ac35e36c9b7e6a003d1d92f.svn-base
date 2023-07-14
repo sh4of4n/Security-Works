@@ -1,0 +1,21 @@
+import React from 'react';
+import { Container } from 'react-bootstrap';
+
+interface PanelProps {
+  children: JSX.Element | JSX.Element[];
+  className?: string;
+}
+
+const Panel = ({
+  children,
+  className,
+}: PanelProps) => {
+  return (
+    <Container className={className}>
+      {children}
+    </Container>
+  );
+};
+
+export default Panel;
+

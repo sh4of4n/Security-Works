@@ -1,0 +1,56 @@
+import React, { useContext } from "react";
+import { Dropdown } from "react-bootstrap";
+import { RouteContext } from "contexts/RouteContext";
+
+interface DropdownProps {
+  children?: JSX.Element | JSX.Element[];
+  onDropdownItemClick?: () => void;
+  className?: string;
+  label: string | JSX.Element;
+  options?: Array<{
+    key: string;
+    value: any;
+    path?: string | (() => void);
+  }>;
+}
+
+const DropdownComponent = ({
+  children,
+  onDropdownItemClick,
+  className,
+  label,
+  options,
+}: DropdownProps) => {
+  const { goTo } = useContext(RouteContext);
+
+  return (
+    <>
+      <Dropdown className={className}>
+        <Dropdown.Toggle className={className}>{label}</Dropdown.Toggle>
+        <Dropdown.Menu>
+          {children}
+          {options &&
+            options.map((option) => (
+              <Dropdown.Item
+                key={option.key}
+                onSelect={() => {
+                  onDropdownItemClick && onDropdownItemClick();
+                }}
+                onClick={() => {
+                  if (typeof option.path === "string") {
+                    goTo(option.path);
+                  } else if (typeof option.path === "function") {
+                    option.path();
+                  }
+                }}
+              >
+                {option.value}
+              </Dropdown.Item>
+            ))}
+        </Dropdown.Menu>
+      </Dropdown>
+    </>
+  );
+};
+
+export default DropdownComponent;

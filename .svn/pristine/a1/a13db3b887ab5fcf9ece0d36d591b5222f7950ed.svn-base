@@ -1,0 +1,35 @@
+/*
+--------------------------------------- CHANGE LOG ---------------------------------------
+Date(DD/MM/YY)        Author    Version         Remarks
+------------------------------------------------------------------------------------------
+19/06/2023            SawYN     1.0.0           - Create Text css 
+
+*/
+
+import { css } from "@emotion/react";
+
+const TableCss = () => css`
+
+  & .checkbox{
+    font-size: 0.85rem;
+  }
+
+  & .table-title{
+    font-size: 0.85rem;
+    color: rgb(19, 77, 163);
+  }
+
+  & .table-bg td {
+    background: #E8F4FF;
+  }
+
+  & .dropdown-menu{
+    transform: translate(-105px, 26px) !important;
+  }
+
+  & .icon{
+    color: rgb(19, 77, 163);
+  }
+`;
+
+export default TableCss;

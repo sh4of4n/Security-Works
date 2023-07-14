@@ -1,0 +1,20 @@
+/*
+--------------------------------------- CHANGE LOG ---------------------------------------
+Date(DD/MM/YY)        Author    Version         Remarks
+------------------------------------------------------------------------------------------
+19/06/2023            SawYN     1.0.0           - Create Text css 
+
+*/
+
+import { css } from "@emotion/react";
+import { Theme } from "styles/theme/DefaultTheme";
+
+const TextCss = (theme: Theme) => css`
+  color: ${theme.txt};
+
+  &.hover {
+    color: ${theme.txtHvr};
+  }
+`;
+
+export default TextCss;

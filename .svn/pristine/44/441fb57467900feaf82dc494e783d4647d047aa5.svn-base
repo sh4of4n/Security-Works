@@ -1,0 +1,20 @@
+/*
+--------------------------------------- CHANGE LOG ---------------------------------------
+Date(DD/MM/YY)        Author    Version         Remarks
+------------------------------------------------------------------------------------------
+19/06/2023            SawYN     1.0.0           - Create Context
+
+*/
+
+import React from "react";
+import { PartnerContextProvider } from "./PartnerContext";
+
+const Contexts = ({ children }) => {
+  return (
+    <PartnerContextProvider>
+      {children}
+    </PartnerContextProvider>
+  );
+};
+
+export default Contexts;

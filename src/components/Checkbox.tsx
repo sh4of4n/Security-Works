@@ -1,0 +1,40 @@
+/*
+--------------------------------------- CHANGE LOG ---------------------------------------
+Date(DD/MM/YY)        Author    Version         Remarks
+------------------------------------------------------------------------------------------
+19/06/2023            Steven    1.0.0           - Create Checkbox component
+*/
+
+import React from "react";
+import { Container, Form } from "react-bootstrap";
+
+interface CheckboxProps {
+  label: string;
+  value: boolean;
+  disabled?: boolean;
+  onClick: (value: boolean) => void;
+  className?: string;
+}
+
+const Checkbox = ({
+  label,
+  value,
+  disabled = false,
+  onClick,
+  className,
+}: CheckboxProps) => {
+  return (
+    <Container>
+      <Form.Check
+        label={label}
+        checked={value}
+        type={"checkbox"}
+        disabled={disabled}
+        onChange={() => onClick(!value)}
+        className={className}
+      />
+    </Container>
+  );
+};
+
+export default Checkbox;

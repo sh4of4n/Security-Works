@@ -1,0 +1,83 @@
+/*
+--------------------------------------- CHANGE LOG ---------------------------------------
+Date(DD/MM/YY)        Author    Version         Remarks
+------------------------------------------------------------------------------------------
+14/06/2023            SawYN     1.0.0           - Create AdvancedInput component
+*/
+
+import React, { useState } from "react";
+import { Container, Form, InputGroup } from "react-bootstrap";
+import { Eye, EyeSlash } from "react-bootstrap-icons";
+import Text from "./Text";
+
+interface TextFieldProps {
+  mask?: boolean;
+  label?: string;
+  placeholder?: string;
+  value: string | number;
+  min?: number;
+  max?: number;
+  name?: string;
+  disabled?: boolean;
+  leftIcon?:JSX.Element;
+  rightIcon?:JSX.Element;
+  className?: string;
+  onChange: (value: string) => void;
+  onBlur?: () => void;
+  maxLength?: number;
+}
+
+const AdvancedInput = ({
+  mask = false,
+  label,
+  placeholder,
+  value,
+  disabled = false,
+  className,
+  onChange,
+  onBlur,
+  maxLength,
+  leftIcon,
+  rightIcon,
+  min,
+  max
+}:TextFieldProps) => {
+  const [passwordShown, setPasswordShown] = useState<boolean>(false);
+
+  const onEyeToggle = () => {
+    if (passwordShown === true) {
+      setPasswordShown(false);
+      return;
+    }
+    setPasswordShown(true);
+  };
+
+  return(
+    <Container className={className}>
+      <Text label={label}/>
+      <InputGroup>
+        {leftIcon ? <InputGroup.Text>{leftIcon}</InputGroup.Text> : null}
+        <Form.Control
+          type={mask && !passwordShown ? "password" : "text"}
+          maxLength={maxLength}
+          placeholder={placeholder}
+          value={value}
+          min={min}
+          max={max}
+          onChange={(e) => onChange(e.target.value)}
+          onBlur={onBlur}
+          disabled={disabled}
+        />
+        {rightIcon ? <InputGroup.Text>{rightIcon}</InputGroup.Text> : null}
+        {mask &&
+          (passwordShown ? (
+            <InputGroup.Text><Eye onClick={onEyeToggle} className="input-mask-icon" size={18}/></InputGroup.Text>
+          ) : (
+            <InputGroup.Text><EyeSlash onClick={onEyeToggle} className="input-mask-icon" size={18}/></InputGroup.Text>
+          ))}
+      </InputGroup>
+    </Container>
+  );
+}
+
+export default AdvancedInput;

@@ -1,0 +1,62 @@
+/*
+--------------------------------------- CHANGE LOG ---------------------------------------
+Date(DD/MM/YY)        Author    Version         Remarks
+------------------------------------------------------------------------------------------
+23/06/2023            SawYN     1.0.0           - Create Select component
+04/07/2023            SawYN     1.0.1           - Add default value
+
+*/
+
+import React from "react";
+import { Container, Form } from "react-bootstrap";
+
+interface SelectProps {
+  label?: string;
+  placeholder?:string;
+  value: string;
+  options: Array<{
+    key: string;
+    value: any;
+  }>
+  disabled?: boolean;
+  className?:string;
+  onSelect: (value:any) => void;
+}
+
+const Select = ({
+  label,
+  placeholder,
+  options,
+  disabled = false,
+  className,
+  onSelect,
+  value,
+}: SelectProps) => {
+
+  const onSelectClick = (e) => {
+    onSelect(e.target.value);
+  }
+
+  return (
+    <Container>
+      <Form.Group className={className}>
+        <Form.Label>
+          {label}
+        </Form.Label>
+        <Form.Select  
+          disabled={disabled} 
+          placeholder={placeholder}
+          value={value ? value : options[0].value}
+          onChange={(e) => {onSelectClick(e)}}
+        >
+          {options.map((data) => {
+            return (<option key={data.key} value={data.value}>{data.value}</option>)
+          })
+          }
+        </Form.Select>
+      </Form.Group>
+    </Container>
+  );
+};
+
+export default Select;

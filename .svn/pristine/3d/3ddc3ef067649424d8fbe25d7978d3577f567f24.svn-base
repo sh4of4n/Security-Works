@@ -1,0 +1,62 @@
+/*
+--------------------------------------- CHANGE LOG ---------------------------------------
+Date(DD/MM/YY)        Author    Version         Remarks
+------------------------------------------------------------------------------------------
+14/06/2023            SawYN     1.0.0           - Create Input component
+*/
+
+import React, { HTMLInputTypeAttribute } from "react";
+import { FloatingLabel, Form } from "react-bootstrap";
+
+interface TextFieldProps {
+  id?: string;
+  type?: HTMLInputTypeAttribute;
+  label: string;
+  value: string | number;
+  disabled?: boolean
+  min?: number;
+  max?: number;
+  className?: string;
+  onChange: (value: string) => void;
+  onBlur?: () => void;
+  maxLength?: number;
+}
+
+const Input = ({
+  id,
+  type,
+  label,
+  value,
+  disabled = false,
+  min,
+  max,
+  className,
+  onChange,
+  onBlur,
+  maxLength,
+}:TextFieldProps) => {
+
+  return(
+    <Form.Group>
+      <FloatingLabel
+        controlId={id}
+        label={label}
+      >
+        <Form.Control
+          type={type}
+          maxLength={maxLength}
+          placeholder={label}
+          value={value}
+          min={min}
+          max={max}
+          className={className}
+          onChange={(e) => onChange(e.target.value)}
+          onBlur={onBlur}
+          disabled={disabled}
+        />
+      </FloatingLabel>
+    </Form.Group>
+  );
+}
+
+export default Input;

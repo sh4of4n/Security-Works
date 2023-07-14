@@ -1,0 +1,59 @@
+/*
+--------------------------------------- CHANGE LOG ---------------------------------------
+Date(DD/MM/YY)        Author    Version         Remarks
+------------------------------------------------------------------------------------------
+14/06/2023            SawYN     1.0.0           - Create Input component
+*/
+
+import React, { HTMLInputTypeAttribute } from "react";
+import { Form, InputGroup } from "react-bootstrap";
+
+interface TextFieldProps {
+  type?: HTMLInputTypeAttribute;
+  label: string;
+  value: string | number;
+  min?: number;
+  max?: number;
+  name?: string;
+  leftIcon?:JSX.Element;
+  rightIcon?:JSX.Element;
+  className?: string;
+  onChange: React.ChangeEventHandler;
+  onBlur?: React.FocusEventHandler;
+  maxLength?: number;
+}
+
+const AdvancedInput = ({
+  type,
+  label,
+  value,
+  className,
+  onChange,
+  onBlur,
+  maxLength,
+  leftIcon,
+  rightIcon,
+  min,
+  max
+}:TextFieldProps) => {
+
+  return(
+    <InputGroup>
+      {leftIcon ? <InputGroup.Text>{leftIcon}</InputGroup.Text> : null}
+      <Form.Control
+        type={type}
+        maxLength={maxLength}
+        placeholder={label}
+        value={value}
+        min={min}
+        max={max}
+        className={className}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
+      {rightIcon ? <InputGroup.Text>{rightIcon}</InputGroup.Text> : null}
+    </InputGroup>
+  );
+}
+
+export default AdvancedInput;

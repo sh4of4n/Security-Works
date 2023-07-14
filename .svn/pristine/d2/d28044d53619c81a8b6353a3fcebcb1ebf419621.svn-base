@@ -1,0 +1,65 @@
+// import Button from "components/Button";
+import React, { useState } from "react";
+// import { aesEncryption } from "utilities/cryptos";
+// import Input from "components/Input";
+// import Header from "components/Header";
+
+const Playground = () => {
+  const [pth, setPth] = useState("");
+  const [pld, setPld] = useState("");
+  const [tkt, setTkt] = useState(
+    "jzLwBjYizedmqVIil295A8BTQDLKxLGCxABZ0D3jA5STsgKzu6XzftjNtf4sRYPJb63p7Vwh/T7Xbeenmn/tyMVCjmBQLGwRdwe5fsQW0RF9Rpv3ClTrq37tVnDYqEy0SASYjnVjSrQJ6rTAXvRCe3kv2Zq8FgLUZi1rbpby/+u3mqhxVvPy5gEcLy3vJP8HRmdxRlIHYoL2ZcY3Up17SC8AVAWEjAniBJVVPenFZIs75y0pCQ1gSRHeHz08D5KEHrjt5R4r0cSc8FAVzkHcYl85ItfcLTRWcXG+OxYnfjQcA3vqlFxdaIw2XOifh2Vwsj+3lnIOkYAncFLZvv/7/g=="
+  );
+  const [mbl, setMbl] = useState("");
+  const [pwd, setPwd] = useState("");
+
+  return (
+    <>
+    <header>
+    SECURITYWORKS FRAME
+
+    </header>
+      {/* <Input
+        value={pth}
+        placeholder="path"
+        onInputChange={(val) => setPth(val)}
+      />
+      <Input
+        value={mbl}
+        placeholder="mobile number"
+        onInputChange={(val) => setMbl(val)}
+      />
+      <Input
+        value={pwd}
+        placeholder="token"
+        onInputChange={(val) => setPwd(val)}
+      />
+      <Button
+        label="generate"
+        onButtonClick={() => {
+          setPld(
+            aesEncryption(
+              "85d46a29c574b84d360782517107b7db",
+              JSON.stringify({
+                path: pth,
+                partnerCUI: mbl,
+                token: pwd,
+                appUniqueKey: "2ed93ea4bc247506",
+                deviceTyp: "MAR",
+              })
+            )
+          );
+        }}
+      />
+      <input
+        value={
+          pld
+            ? `http://localhost:3000/kayaakuwallet-sdk/?pid=LSY&pld=${pld}&tkt=${tkt}`
+            : ""
+        }
+      /> */}
+    </>
+  );
+};
+
+export default Playground;

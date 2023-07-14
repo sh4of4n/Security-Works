@@ -1,0 +1,106 @@
+/*
+--------------------------------------- CHANGE LOG ---------------------------------------
+Date(DD/MM/YY)        Author    Version         Remarks
+------------------------------------------------------------------------------------------
+16/06/2023            SawYN     1.0.0           - Create Table component
+
+*/
+
+import React from "react";
+import { Col, Container, Row, Table as BSTable } from "react-bootstrap";
+import Text from "./Text";
+
+export interface TableProps {
+  title?: string
+  onMoreClick?: () => void
+  columns: Array<TableColumn>
+  data: any
+  className?: string
+}
+
+interface TableColumn {
+  key: string
+  label: string
+}
+
+const Table = ({
+  title,
+  columns,
+  data,
+  className
+}: TableProps) => {
+
+  return (
+    <Container className={className}>
+      {title && (
+        <Container>
+          <Row>
+            <Col>
+              <Text label={title}/>
+            </Col>
+          </Row>
+        </Container>
+      )}
+      <BSTable className="mb-0">
+        {columns && (
+          <thead>
+            <tr>
+              {columns.map(({ key, label }) => {
+                return (
+                  <th key={key}>
+                    <Text label={label}/>
+                  </th>
+                )
+              })}
+            </tr>
+          </thead>
+        )}
+        {data && (
+          <tbody>
+          {data &&
+            data.map((row, i) => (
+              <tr key={i}>
+                {columns.map(({ key }) => (
+                  <td key={key}>
+                    <Text label={row[Object.keys(data[i])[key]]}/>
+                  </td>
+                ))}
+              </tr>
+            ))}
+        </tbody>
+        )}
+      </BSTable>
+    </Container>
+  )
+}
+
+export const getTableData = (data, currentPage, rowsPerPage) => {
+  const dataArray = [];
+
+  //To know the starting data index that is gonna be displayed on current page
+  const startIndex = (currentPage - 1) * rowsPerPage;
+
+  //To know the last data index that is gonna be displayed on current page
+  const endIndex = startIndex + rowsPerPage;
+
+  /*  To avoid accessing elements that don't exist
+      Example: Currently there is 54 data (maximum element index = 53).
+      The endIndex for the last page will be 50+5=55.
+      It exceeded the amount of elements available leading to error.
+      With the adjusted end index, if the endIndex exceed, it will choose the maximum available index in tableData
+  */
+  const accurateEndIndex = Math.min(endIndex, data.length);
+
+  for(let i = startIndex; i < accurateEndIndex; i++)
+  {
+      dataArray.push(data[i]);
+  }
+
+  return dataArray;
+}; 
+
+export const getDataLength = (data) => {
+  return data.length;
+};
+
+export default Table;

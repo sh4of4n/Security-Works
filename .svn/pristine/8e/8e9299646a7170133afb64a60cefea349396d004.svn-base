@@ -1,0 +1,73 @@
+/*
+--------------------------------------- CHANGE LOG ---------------------------------------
+Date(DD/MM/YY)        Author    Version         Remarks
+------------------------------------------------------------------------------------------
+26/06/2023            SawYN     1.0.0           - Create Login css 
+
+*/
+
+import { css } from "@emotion/react";
+
+const BrowseCss = () => css`
+  padding: 1.5rem 6%;
+  min-height: 100%;
+
+  & .breadcrumb{
+    font-size: 1.2rem;
+  }
+
+  & .saved-icon{
+    color: rgb(19, 77, 163);
+  }
+
+  & button{
+    font-size: 0.9rem;
+    background: white;
+    color: black;
+    border: 0.063rem solid rgb(238, 238, 238);
+    box-shadow: rgba(0, 0, 0, 0.05) 0rem 0.375rem 0.375rem 0rem;
+  }
+
+  & button:hover{
+    background: rgb(238, 238, 238);
+    border: 0.063rem solid rgb(238, 238, 238);
+    color: black;
+    box-shadow: none;
+  }
+
+  & .table-outer-ctn{
+    height: 100%;
+  }
+
+  & .table-ctn{
+    padding: 0.5rem;
+    border-radius: 10px;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.05) 0rem 0rem 0.625rem;
+  }
+
+  & .table-ctn th{
+    background: #ececec;
+    font-weight: 600;
+  }
+
+  & .table-ctn td{
+    font-size: 0.85rem;
+    padding: 1rem .5rem;
+  }
+
+  & .table-ctn svg, .table-ctn img{
+    cursor: pointer;
+  }
+
+  & .pagination-ctn{
+    position: absolute;
+    bottom: 1rem;
+    width: auto;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+  }
+`
+
+export default BrowseCss;

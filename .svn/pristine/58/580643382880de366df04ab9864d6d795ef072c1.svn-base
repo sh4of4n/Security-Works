@@ -1,0 +1,146 @@
+/*
+--------------------------------------- CHANGE LOG ---------------------------------------
+Date(DD/MM/YY)        Author    Version         Remarks
+------------------------------------------------------------------------------------------
+27/06/2023            SawYN     1.0.0           - Create Browse page
+*/
+
+/** @jsxImportSource @emotion/react */
+import Breadcrumb from "components/Breadcrumb";
+import Button from "components/Button";
+import PageTemplate from "components/PageTemplate";
+import Pagination from "components/Pagination";
+import Table, { getTableData } from "components/Table";
+import React, { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
+import { Save2, Save2Fill } from "react-bootstrap-icons";
+import BrowseCss from "styles/pages/BrowseCss";
+
+const Browse = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage] = useState(5);
+  const [checkedList, setCheckedList] = useState({});
+  const [sortAscending, setSortAscending] = useState(true);
+  const [sortCol, setSortCol] = useState(null);
+  const [saved, setSaved] = useState(false);
+
+  const tableTitles = [
+    {key: "0", label:"Application ID"},
+    {key: "1", label:"Application Name"},
+    {key: "2", label:"User ID"},
+    {key: "3", label:"User Name"},
+    {key: "4", label:"Approval Status"},
+  ]
+
+  const tableCol = [ // todo - testing purpose, to delete in the future
+  { appId: "AID1", AppName: "COREW", userId: "USER1", username: "User B", status: "Approved" },
+  { appId: "AID2", AppName: "COREW", userId: "USER2", username: "User B", status: "Approved" },
+  { appId: "AID3", AppName: "COREW", userId: "USER3", username: "User B", status: "Approved" },
+  { appId: "AID4", AppName: "COREW", userId: "USER4", username: "User B", status: "Approved" },
+  { appId: "AID5", AppName: "COREW", userId: "USER5", username: "User B", status: "Approved" },
+  { appId: "AID6", AppName: "COREW", userId: "USER6", username: "User B", status: "Approved" },
+  { appId: "AID7", AppName: "COREW", userId: "USER7", username: "User B", status: "Approved" },
+  { appId: "AID8", AppName: "COREW", userId: "USER8", username: "User B", status: "Approved" },
+  { appId: "AID9", AppName: "COREW", userId: "USER9", username: "User B", status: "Approved" },
+  { appId: "AID10", AppName: "COREW", userId: "USER10", username: "User B", status: "Approved" },
+  { appId: "AID11", AppName: "COREW", userId: "USER11", username: "User B", status: "Approved" },
+  { appId: "AID12", AppName: "COREW", userId: "USER12", username: "User B", status: "Approved" },
+  { appId: "AID13", AppName: "COREW", userId: "USER13", username: "User B", status: "Approved" },
+  { appId: "AID14", AppName: "COREW", userId: "USER14", username: "User B", status: "Approved" },
+  { appId: "AID15", AppName: "COREW", userId: "USER15", username: "User B", status: "Approved" },
+  ]
+
+  const sortedData = [...tableCol];
+
+  sortedData.sort((a,b)=>{
+    const first = Object.keys(a)[sortCol];
+    const second = Object.keys(b)[sortCol];
+
+    if(sortAscending === true) {
+      if(a[first] < b[second]){
+        return -1;
+      }
+
+      if(a[first] > b[second]){
+        return 1;
+      }
+    }else if(sortAscending === false){
+      if(a[first] > b[second]){
+        return -1;
+      }
+
+      if(a[first] < b[second]){
+        return 1;
+      }
+    }
+
+    return 0;
+  })
+
+  useEffect(()=>{
+    let checkList = [];
+    tableTitles.map(() => {
+      return checkList.push(true); 
+    })
+
+    setCheckedList({...checkList});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const onViewClick = (data) => {
+    console.log(data);
+  }
+
+  return (
+    <PageTemplate>
+      <Container css={BrowseCss} className="p-0 d-flex flex-column h-100">
+        <Container className="p-0">
+          <Breadcrumb active="Dashboard" className="p-0 breadcrumb"/>
+          <Container className="mt-3 p-0 d-flex justify-content-end">
+            <Container className="p-0">
+              <Button label="Filter" onClick={()=>{}} className="me-3"/>
+              <Button label="Search" onClick={()=>{}}/>
+            </Container>
+            <Container className="text-end p-0">
+              <Button label="Add" onClick={()=>{}} className="me-3"/>
+              <Button label="Export" onClick={()=>{}} className="me-3"/>
+              {saved ?
+                <Save2Fill className="me-2 saved-icon" onClick={()=>setSaved(!saved)}/>
+              :
+                <Save2 className="me-2 saved-icon" onClick={()=>setSaved(!saved)}/>
+              }
+            </Container>
+          </Container>
+        </Container>
+
+        <Container className="p-0 table-outer-ctn d-flex flex-column justify-content-between">
+          <Container className="mt-5 table-ctn">
+            <Table 
+              columns={tableTitles} 
+              data={getTableData(sortedData, currentPage, rowsPerPage)} 
+              className="p-0 table"
+              checkedList={checkedList}
+              setCheckedList={setCheckedList}
+              sort={sortAscending}
+              setSort={setSortAscending}
+              sortCol={sortCol}
+              setSortCol={setSortCol}
+              dropdownOptions={true}
+              onViewClick={onViewClick}
+            />
+          </Container>
+
+          <Pagination
+            dataRendered={currentPage}
+            setDataRendered={setCurrentPage}
+            totalPages={Math.ceil(tableCol.length/rowsPerPage)}
+            maxPageShown={5}
+            className="justify-content-center m-0"
+          />
+        </Container>
+      </Container>
+    </PageTemplate>
+  )
+}
+
+export default Browse;

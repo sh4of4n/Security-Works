@@ -1,0 +1,27 @@
+/*
+--------------------------------------- CHANGE LOG ---------------------------------------
+Date(DD/MM/YY)        Author    Version         Remarks
+------------------------------------------------------------------------------------------
+21/06/2023            SawYN     1.0.0           - Create SideMenu css 
+
+*/
+
+import { css } from "@emotion/react";
+import { Theme } from "styles/theme/DefaultTheme";
+
+const HeaderCss = (theme: Theme) => css`
+  background: white;
+  height: 7vh;
+  box-shadow: rgba(0, 0, 0, 0.05) 0rem 0.375rem 0.375rem 0rem;
+  z-index: 20;
+  align-items: center;
+  display: flex;
+  padding: 0 2rem;
+
+  & img{
+    width: auto;
+    height: 2rem;
+  }
+`
+
+export default HeaderCss;
