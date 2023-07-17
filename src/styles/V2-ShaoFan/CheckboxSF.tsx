@@ -1,22 +1,52 @@
+import Checkbox from 'components/Checkbox';
 import React, { useState } from 'react';
+import { Container } from 'react-bootstrap';
 
-const CheckboxSF = () => {
-  const [checked, setChecked] = useState(false);
+interface CheckboxProps {
+  label?: string;
+  options: Array<{
+    key: string;
+    value: any;
+  }>;
+  disabled: boolean;
+  className?: string;
+  onSelect: (value: any) => void;
+  icon?: React.ReactNode;
+}
 
-  const handleCheckboxClick = () => {
-    setChecked(!checked);
-  };
+const CheckboxSF = ({
+  label,
+  options,
+  disabled = false,
+  className,
+  icon,
+}:CheckboxProps) => {
+  const [selectedOptions, setSelectedOptions] = useState([]);
+
+    const handleSelectedOptions = (selected, isChecked) => {
+      if (isChecked) {
+        setSelectedOptions([...selectedOptions, selected]);
+      } else {
+        setSelectedOptions(selectedOptions.filter((value) => value !== selected));
+      }
+    };
+  
 
   return (
-    <div>
-      <label>
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={handleCheckboxClick}
-        />
-      </label>
-    </div>
+    <>
+    {options.map((option) => (
+    <Container key={option.value}>
+    <Checkbox
+        value={selectedOptions.includes(option.value)}
+        label={option.value}
+        disabled={disabled}
+        onClick={(isChecked) =>
+        handleSelectedOptions(option.value, isChecked)
+        }
+    />
+    </Container>
+    ))}
+    </>
   );
 };
 

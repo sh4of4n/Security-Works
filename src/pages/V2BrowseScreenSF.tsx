@@ -15,7 +15,7 @@ import {
 
 import Text from "components/Text";
 import PageTemplate from "components/PageTemplate";
-import { SetStateAction, useContext, useState } from "react";
+import React, { SetStateAction, useContext, useState } from "react";
 import { PartnerContext } from "contexts/PartnerContext";
 import { Container, Dropdown } from "react-bootstrap";
 import V2BrowseScreenSFCss from "styles/V2-ShaoFan/V2BrowseScreenSFCss";
@@ -32,6 +32,10 @@ import ModalConfirmSF from "styles/V2-ShaoFan/ModalConfirmSF";
 import ModalConfirmSFCss from "styles/V2-ShaoFan/ModalConfirmSFCss";
 import DropdownCheckboxSF from "styles/V2-ShaoFan/DropdownCheckboxSF";
 import DropdownSFCss from "styles/V2-ShaoFan/DropdownSFCss";
+import ModalSearchSF from "styles/V2-ShaoFan/ModalSearchSF";
+import ModalSearchSFCss from "styles/V2-ShaoFan/ModalSearchSFCss";
+import Checkbox from "components/Checkbox";
+import CheckboxSF from "styles/V2-ShaoFan/CheckboxSF";
 
 
 const V2BrowseScreenSF = () => {
@@ -40,6 +44,7 @@ const V2BrowseScreenSF = () => {
 
     const [sortOrder, setSortOrder] = useState("asc");
     const [formData, setFormData] = useState({});
+    const [selectedData, setSelectedData] = useState({});
     const [addFormData, setAddFormData] = useState({});
     const [sortColumn, setSortColumn] = useState("");
 
@@ -127,6 +132,8 @@ const V2BrowseScreenSF = () => {
     const [showSearchModal, setShowSearchModal] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [selectedOptions, setSelectedOptions] = useState([]);
+    const [showSelectedSearch, setShowSelectedSearch] = useState(false);
     const { theme } = useContext(PartnerContext);
 
 
@@ -152,6 +159,10 @@ const V2BrowseScreenSF = () => {
         console.log("Selected option:", selectedValue);
       }
 
+
+      const handleSearchOptions = (selectedOptions:any) => {
+        setSelectedData(selectedOptions);
+      }
     return (
         <PageTemplate>
             <Container>
@@ -164,7 +175,7 @@ const V2BrowseScreenSF = () => {
                     className="searchbutton"
                     label={"Search By"}
                     iconRight={<Search css={V2BrowseScreenSFCss} className="search-icon"/>} 
-                    onClick={()=>{}}                
+                    onClick={()=>{ setShowSearchModal(true)}}                
                 />
 
                 <DropdownCheckboxSF
@@ -230,7 +241,7 @@ const V2BrowseScreenSF = () => {
             <ModalFilterSF
                 show={show}
                 setShow={setShow}
-                headerTitle="Search Filter🔍"
+                headerTitle="Filter🔍"
                 css={ModalFilterSFCss(theme)}
                 className="modal-search"
                 onBack={()=>{setShow(false)}}
@@ -255,6 +266,58 @@ const V2BrowseScreenSF = () => {
                     ))}
                 </form>
             </ModalFilterSF>
+
+            <ModalSearchSF 
+                show={showSearchModal}   
+                setShow={setShowSearchModal}
+                headerTitle="Choose field to search by"
+                css={ModalSearchSFCss}
+                className="modal-search"
+                onBack={()=>setShowSearchModal(false)}
+                onProceed={()=>setShowSelectedSearch(true)}
+                selectedData={selectedData}
+                handleSelectedOption={handleSearchOptions}
+            >
+                <Container >
+                <CheckboxSF 
+                    options={filterOptions} 
+                    disabled={false} 
+                    onSelect={(value) => handleSearchOptions(value)}/>
+                </Container>
+            </ModalSearchSF>
+
+            <ModalSearchSF 
+                show={showSelectedSearch} 
+                setShow={setShowSelectedSearch}
+                css={ModalSearchSFCss(theme)}
+                className="modal-selected"
+                onBack={()=>setShowSearchModal(true)}
+                headerTitle="Search by"
+                selectedData={selectedData}
+                handleSelectedOption={handleSearchOptions}
+            >
+                <form>
+                {filterOptions
+            //.filter((option) => selectedData.includes(option.value))
+            .map(({ key, value, icon }) => (
+              <Container key={key}>
+                <InputSF
+                  label={value.toString()}
+                  value={addFormData[key] || ""}
+                  iconLeft={icon}
+                  className="input-field"
+                  onChange={(newValue) => handleAddInputChange(key, newValue)}
+                  type={
+                    value === "Date" ? "date" : undefined ||
+                    value === "Amount" ? "number" : undefined ||
+                    value === "Time" ? "time" : undefined
+                  }
+                />
+              </Container>
+            ))}
+                </form>
+            </ModalSearchSF>
+
 
             <ModalAddSF
                 show={showAddModal}
