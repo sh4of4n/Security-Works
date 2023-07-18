@@ -41,6 +41,7 @@ export interface TableProps {
   viewIcon?:boolean
   editIcon?: boolean
   deleteIcon?: boolean
+  tableContainerRef?: React.RefObject<HTMLDivElement>
 }
 
 interface TableColumn {
@@ -62,6 +63,7 @@ const TableSF = ({
   setSortCol,
   viewIcon = true,
   checkboxIcon = true,
+  tableContainerRef,
   editIcon = true,
   deleteIcon=true,
 }: TableProps) => {
@@ -102,6 +104,12 @@ const TableSF = ({
       ...prevFormData,
       [key]: value,
     }));
+  };
+
+  const handleScrollToTop = () => {
+    if (tableContainerRef.current) {
+      tableContainerRef.current.scrollTop = 0;
+    }
   };
 
   const [show, setShow] = useState(false);

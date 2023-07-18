@@ -2,8 +2,11 @@
 
 import {
     Alarm,
+    ArrowUpCircle,
     CalendarDate,
     Cash,
+    Eye,
+    EyeFill,
     Filter,
     FunnelFill,
     GeoAlt,
@@ -15,7 +18,7 @@ import {
 
 import Text from "components/Text";
 import PageTemplate from "components/PageTemplate";
-import React, { SetStateAction, useContext, useState } from "react";
+import React, { SetStateAction, useContext, useState , useRef} from "react";
 import { PartnerContext } from "contexts/PartnerContext";
 import { Container, Dropdown } from "react-bootstrap";
 import V2BrowseScreenSFCss from "styles/V2-ShaoFan/V2BrowseScreenSFCss";
@@ -36,6 +39,8 @@ import ModalSearchSF from "styles/V2-ShaoFan/ModalSearchSF";
 import ModalSearchSFCss from "styles/V2-ShaoFan/ModalSearchSFCss";
 import Checkbox from "components/Checkbox";
 import CheckboxSF from "styles/V2-ShaoFan/CheckboxSF";
+import ScrollToTopButtonSF from "styles/V2-ShaoFan/ScrollToTopButtonSF";
+import ScrollToTopButtonSFCss from "styles/V2-ShaoFan/ScrollToTopButtonSFCss";
 
 
 const V2BrowseScreenSF = () => {
@@ -135,6 +140,7 @@ const V2BrowseScreenSF = () => {
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [showSelectedSearch, setShowSelectedSearch] = useState(false);
     const { theme } = useContext(PartnerContext);
+    const tableContainerRef = useRef<HTMLDivElement>(null);
 
 
     const handleInputChange = (key, value) => {
@@ -163,6 +169,14 @@ const V2BrowseScreenSF = () => {
       const handleSearchOptions = (selectedOptions:any) => {
         setSelectedData(selectedOptions);
       }
+
+      const handleScrollToTop = () => {
+        // Scroll the table to the top
+        if (tableContainerRef.current) {
+          tableContainerRef.current.scrollTop = 0;
+        }
+      };
+
     return (
         <PageTemplate>
             <Container>
@@ -181,8 +195,8 @@ const V2BrowseScreenSF = () => {
                 <DropdownCheckboxSF
                     css={DropdownSFCss(theme)}
                     onSelect={handleSelectedOptions}
-                    label="Filter Column by"
-                    icon={<FunnelFill/>}
+                    label="Show/ Hide Column"
+                    icon={<EyeFill/>}
                     className="filterdropdown" 
                     options={filterOptions} 
                     disabled={false}
@@ -190,7 +204,7 @@ const V2BrowseScreenSF = () => {
 
                 <ButtonSF
                     label="Filter"
-                    iconLeft={<Filter />}
+                    iconLeft={<FunnelFill/>}
                     onClick={() => { setShow(true) }}
                     css={V2BrowseScreenSFCss}
                     className="filterbutton"
@@ -207,13 +221,28 @@ const V2BrowseScreenSF = () => {
             
             </Container>
 
+            <Container 
+                ref={tableContainerRef}
+            >
             <TableSF
                 css={V2BrowseScreenSFCss(theme)}
                 className="bodymargin"
                 columns={tableTitles}
                 data={getTableData(tableCol, currentPage, rowsPerPage)}
             />
-
+            </Container>
+            {/* <ScrollToTopButtonSF 
+                disabled={false}
+                tableContainerRef={tableContainerRef}
+                onClick={handleScrollToTop}
+                css={ScrollToTopButtonSFCss(theme)}
+                className="scroll-to-top-button"
+            /> */}
+            {/* <ArrowUpCircle
+      onClick={handleScrollToTop}
+      css={ScrollToTopButtonSFCss(theme)}
+      className="scroll-to-top-button"/> */}
+            
             <Container css={V2BrowseScreenSFCss} className="container-page">
                 <Pagination
                     dataRendered={currentPage}
@@ -291,7 +320,7 @@ const V2BrowseScreenSF = () => {
                 setShow={setShowSelectedSearch}
                 css={ModalSearchSFCss(theme)}
                 className="modal-selected"
-                onBack={()=>setShowSearchModal(true)}
+                onBack={()=>setShowSelectedSearch(false)}
                 headerTitle="Search by"
                 selectedData={selectedData}
                 handleSelectedOption={handleSearchOptions}
