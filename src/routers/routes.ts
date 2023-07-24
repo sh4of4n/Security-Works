@@ -6,7 +6,8 @@ export const paths = {
 //<<<<<<< .mine
   Login: "login",
   BrowseScreenSF: "browsescreensf",
-  V2BrowseScreenSF: "v2browsescreensf"
+  V2BrowseScreenSF: "v2browsescreensf",
+  V3BrowseScreenSF: "v3browsescreensf"
 
   
 //||||||| .r1108

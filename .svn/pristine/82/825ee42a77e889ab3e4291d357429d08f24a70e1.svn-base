@@ -8,22 +8,22 @@ Date(DD/MM/YY)        Author    Version         Remarks
 
 import { Theme } from "./DefaultTheme";
 
-const LeasyTheme = {
+const SWTheme = {
   fontFamily: "Lato-Regular",
-  primary: "#00b4aa",
+  primary: "#134DA3",
   secondary: "#7a7a7a",
   black: "#1a1a1a",
   white: "#ffffff"
 };
 
-const LeasyTextTheme = {
-  txt: LeasyTheme.black,
-  txtHvr: LeasyTheme.primary,
+const SWTextTheme = {
+  txt: SWTheme.black,
+  txtHvr: SWTheme.primary,
 };
 
-const AllLeasyTheme: Theme = {
-  ...LeasyTheme,
-  ...LeasyTextTheme,
+const AllSWTheme: Theme = {
+  ...SWTheme,
+  ...SWTextTheme,
 };
 
-export default AllLeasyTheme;
+export default AllSWTheme;

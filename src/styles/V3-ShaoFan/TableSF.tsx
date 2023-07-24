@@ -10,11 +10,19 @@ Date(DD/MM/YY)        Author    Version         Remarks
 /** @jsxImportSource @emotion/react */
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Col, Container, Row, Table as BSTable, NavDropdown } from "react-bootstrap";
-import Text from "./Text";
-import { ArrowClockwise, ArrowLeftRight, PencilSquare, SortAlphaDown, SortAlphaUpAlt, Trash3 } from "react-bootstrap-icons";
-import { ViewTransaction } from "./Images";
-import Checkbox from "./Checkbox";
+import Text from "../../components/Text";
+import { Alarm, ArrowLeftRight, CalendarDate, Cash, GeoAlt, ListOl, PencilSquare, SortAlphaDown, SortAlphaUpAlt, Trash3 } from "react-bootstrap-icons";
+import { ViewTransaction } from "../../components/Images";
+import Checkbox from "../../components/Checkbox";
 import TableCss from "styles/components/TableCss";
+import TableSFCss from "./TableSFCss";
+import ModalEditSF from "./ModalEditSF";
+import Input from "components/Input";
+import ModalEditSFCss from "./ModalEditSFCss";
+import InputSF from "./InputSF";
+import ModalDeleteSF from "./ModalDeleteSF";
+import ModalDeleteSFCss from "./ModalDeleteSFCss";
+import CheckboxSF from "./CheckboxSF";
 
 export interface TableProps {
   title?: string
@@ -23,18 +31,18 @@ export interface TableProps {
   data: any
   dropdownOptions?: boolean
   checkedList?: any
-  setCheckedList?: Dispatch<SetStateAction<Object>>
+  //setCheckedList?: Dispatch<SetStateAction<Object>>
   className?: string
-  sort? :any
-  setSort?: Dispatch<SetStateAction<any>>
-  sortCol?: Array<string>
-  setSortCol?: Dispatch<SetStateAction<string[]>>
+  sort? :boolean
+  setSort?: Dispatch<SetStateAction<boolean>>
+  sortCol?: string
+  setSortCol?: Dispatch<SetStateAction<string>>
+  checkboxIcon?:boolean
   viewIcon?:boolean
   editIcon?: boolean
   deleteIcon?: boolean
-  onViewClick?: (data) => void
-  onEditClick?: (data) => void
-  onDeleteClick?: (data) => void
+  tableContainerRef?: React.RefObject<HTMLDivElement>
+  handleScrollToTop?: () => void;
 }
 
 interface TableColumn {
@@ -42,38 +50,38 @@ interface TableColumn {
   label: string | JSX.Element
 }
 
-const Table = ({
+const TableSF = ({
   title,
   columns,
   data,
   dropdownOptions = false,
   checkedList,
-  setCheckedList,
+  //setCheckedList,
   className,
   sort,
   setSort,
   sortCol,    //which column being sorting
   setSortCol,
   viewIcon = true,
+  checkboxIcon = true,
   editIcon = true,
   deleteIcon=true,
-  onViewClick,
-  onEditClick,
-  onDeleteClick
+  tableContainerRef,
+  handleScrollToTop,
 }: TableProps) => {
   const [checkboxIndex, setCheckboxIndex] = useState(null);
 
   const [columnOrder, setColumnOrder] = useState(columns.map((column) => column.key));
+  const [formData, setFormData] = useState({})
 
-  useEffect(()=>{
-    if(checkboxIndex !== null || !checkedList){
-      setCheckedList((prevState) => ({
-        ...prevState,
-        [checkboxIndex]: !checkedList[checkboxIndex],
-      }));
-      setCheckboxIndex(null);
-    }
-  }, [checkboxIndex, checkedList, setCheckedList]);
+  const filterOptions = [
+    { key: "0", value: "Location" , icon:<GeoAlt/>},
+    { key: "1", value: "Date" ,icon:<CalendarDate/>},
+    { key: "2", value: "Time" ,icon:<Alarm/>},
+    { key: "3", value: "Price" ,icon:<Cash/>},
+    { key: "4", value: "Amount" ,icon:<ListOl/>},
+    { key: "5", value: "Remark" ,icon:<PencilSquare/>},
+]
 
   const handleColumnReorder = (index) => {
     const newColumnOrder = [...columnOrder];
@@ -83,16 +91,24 @@ const Table = ({
     setColumnOrder(newColumnOrder);
   };
 
-  const onSortClick = (key: string) => {
-    setSort({...sort, [key]:!sort[key]}); 
-    sortCol === null ?
-      setSortCol([key])
-    :
-      setSortCol([key, ...sortCol])
+  const handleInputChange = (key, value) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [key]: value,
+    }));
   };
 
+  const scrollToTop = () => {
+    if (tableContainerRef.current) {
+      tableContainerRef.current.scrollTop = 0;
+    }
+  };
+
+  const [show, setShow] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
+
   return (
-    <Container css={TableCss} className={className}>
+    <Container css={TableSFCss} className="table-container">
       {title && (
         <Container>
           <Row>
@@ -102,7 +118,7 @@ const Table = ({
           </Row>
         </Container>
       )}
-      <BSTable className="mb-0">
+      <BSTable className="mb-0" css={TableSFCss}>
         {columns && (
           <thead>
             <tr>
@@ -116,17 +132,13 @@ const Table = ({
                           <Text 
                             label={label} 
                             className="pe-2 table-title" 
-                            onClick={()=>onSortClick(key)} 
-                          />
+                            onClick={()=>{setSort(!sort); setSortCol(key);}}/>
                         :
                           label
                         }
-                        {sortCol?.find((data)=>{return data === key}) === key &&
-                          <Container 
-                            onClick={()=>onSortClick(key)} 
-                            className="p-0 w-auto m-0 align-items-center d-flex me-1"
-                          >
-                          {(sort[key] ?
+                        {sortCol === key &&
+                          <Container onClick={()=>{setSort(!sort); setSortCol(key);}} className="p-0 w-auto m-0 align-items-center d-flex me-1">
+                          {(sort ?
                             <SortAlphaDown/>
                             :
                             <SortAlphaUpAlt/>
@@ -154,23 +166,17 @@ const Table = ({
                       </Container>
                     </th>
                   :
-                    <th key={index} className={checkedList[key] === false ? "d-none":""}>
+                    <th key={index}>
                       <Container className="d-flex p-0 align-items-center">
-                        <Container 
-                          className="d-flex p-0 w-auto m-0 align-items-center" 
-                          onClick={()=>onSortClick(key)} 
-                        >
+                        <Container className="d-flex p-0 w-auto m-0 align-items-center" onClick={()=>{setSort(!sort); setSortCol(key);}}>
                         {typeof label === "string" ?
                           <Text label={label} className="table-title me-2"/>
                         :
                           label
                         }
-                        {sortCol?.find((data)=>{return data === key}) === key &&
-                          <Container 
-                            onClick={()=>onSortClick(key)} 
-                            className="p-0 w-auto m-0 align-items-center d-flex me-1"
-                          >
-                          {(sort[key] ?
+                        {sortCol === key &&
+                          <Container onClick={()=>{setSort(!sort); setSortCol(key);}} className="p-0 w-auto m-0 align-items-center d-flex me-1">
+                          {(sort ?
                             <SortAlphaDown/>
                             :
                             <SortAlphaUpAlt/>
@@ -183,17 +189,17 @@ const Table = ({
                     </th>
                 )
               })}
-              {viewIcon && <th></th>}
-              {editIcon && <th></th>}
-              {deleteIcon && <th><ArrowClockwise onClick={()=>{setSortCol(null)}}/></th>}
+              {viewIcon && <th/>}
+              {editIcon && <th/>}
+              {deleteIcon && <th/>}
             </tr>
           </thead>
         )}
         {data && (
           <tbody>
-            {data &&
+          {data &&
             data.map((row, i) => (
-              <tr key={i} className={i%2 === 0 ? "" : "table-bg"}>
+              <tr key={i} css={TableSFCss} className={`${i % 2 === 0 ? "table-bg" : ""} ${row.className}`}>
                 {columnOrder.map(( key ) => (
                   <td key={key} className={(!checkedList ? "" : (checkedList[key]) === false ? "d-none":"")}>
                     {typeof row[Object.keys(data[i])[key]] === "string" ?
@@ -201,15 +207,57 @@ const Table = ({
                       :
                       row[Object.keys(data[i])[key]]
                     }
+
                   </td>
                 ))}
-                {viewIcon && <td width={1}><ViewTransaction onClick={()=>onViewClick(row)}/></td>}
-                {editIcon && <td width={1}><PencilSquare className="icon" onClick={()=>onEditClick(row)}/></td>}
-                {deleteIcon && <td><Trash3 className="icon" onClick={()=>onDeleteClick(row)}/></td>}
+                {viewIcon && <td width={1}><ViewTransaction/></td>}
+                {editIcon && <td width={1}><PencilSquare className="icon" onClick={() => {setShow(true)} }/></td>}
+                {deleteIcon && <td><Trash3 className="icon" onClick={() => {setShowDelete(true)}}/></td>}
               </tr>
             ))}
-          </tbody>
+            
+        </tbody>
         )}
+
+        <ModalEditSF
+        show={show}
+        setShow={setShow}
+        headerTitle="Edit Record ✏️"
+        css={ModalEditSFCss}
+        className="modal-edit"
+        onBack={()=>{setShow(false)}}
+        >
+            <form
+                >
+                    {/* Display form fields for adding */}
+                    {filterOptions.map(({ key, value, icon }) => (
+                        <Container key={key}>
+                            <InputSF
+                                label={value.toString()}
+                                value={formData[key] || ""}
+                                iconLeft={icon}
+                                className="input-field"
+                                onChange={(newValue) => handleInputChange(key, newValue)}
+                                type={value === "Date" ? "date" : undefined || 
+                                      value === "Amount" ? "number" : undefined ||
+                                      value === "Time" ? "time" : undefined}
+                            />
+                        </Container>
+                    ))}
+                </form>
+        </ModalEditSF>
+
+        <ModalDeleteSF
+        show={showDelete}
+        setShow={setShowDelete}
+        headerTitle="Delete Record 🗑️"
+        css={ModalDeleteSFCss}
+        className="modal-delete"
+        onBack={()=>{setShowDelete(false)}}
+        >
+              <Text label={"Are you sure you want to delete this record?"}/>
+        </ModalDeleteSF>
+
       </BSTable>
     </Container>
   )
@@ -240,4 +288,4 @@ export const getTableData = (data, currentPage, rowsPerPage) => {
   return dataArray;
 }; 
 
-export default Table;
+export default TableSF;

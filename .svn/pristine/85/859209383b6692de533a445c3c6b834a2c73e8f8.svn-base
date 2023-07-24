@@ -88,7 +88,13 @@ const Table = ({
     sortCol === null ?
       setSortCol([key])
     :
-      setSortCol([key, ...sortCol])
+      sortCol.includes(key) ? 
+        <>
+          {sortCol.splice(sortCol.indexOf(key),1)}
+          {setSortCol([key, ...sortCol])}
+        </>
+      : 
+        setSortCol([key, ...sortCol])
   };
 
   return (
@@ -154,7 +160,7 @@ const Table = ({
                       </Container>
                     </th>
                   :
-                    <th key={index} className={checkedList[key] === false ? "d-none":""}>
+                    <th key={index}>
                       <Container className="d-flex p-0 align-items-center">
                         <Container 
                           className="d-flex p-0 w-auto m-0 align-items-center" 

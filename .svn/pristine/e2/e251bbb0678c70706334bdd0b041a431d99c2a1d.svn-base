@@ -16,6 +16,7 @@ import { Container } from "react-bootstrap";
 import PageTemplate from "components/PageTemplate";
 import Select from "components/Select";
 import Dropdown from "components/Dropdown";
+import DropdownCss from "styles/components/DropdownCss";
 import { PartnerContext } from "contexts/PartnerContext";
 
 const Playground = () => {
@@ -148,7 +149,7 @@ const Playground = () => {
                 <Search /> Advanced Filter
               </span>
             }
-            //css={DropdownCss()}
+            css={DropdownCss()}
             className="dropdown"
             options={[{key:"1", value:"Data1"},{key:"2", value:"Data2"},{key:"3", value:"Data3"}]}
           >
