@@ -50,7 +50,7 @@ const ModalAddSF: React.FC<ModalProps> = ({
 
       <BSModal.Footer>
         <ButtonSF label="Back" onClick={onBack}/>
-        <ButtonSF label="Submit" css={ModalAddSFCss} className="add-button" onClick={onProceed}/>
+        <ButtonSF label="Save" css={ModalAddSFCss} className="add-button" onClick={onProceed}/>
       </BSModal.Footer>
     </BSModal>
   );

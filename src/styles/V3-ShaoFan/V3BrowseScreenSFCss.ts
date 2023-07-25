@@ -30,6 +30,10 @@ const V2BrowseScreenSFCss = (theme: Theme) => css`
         font-weight: bold;
         margin-right: 10px;
     }
+
+    &.top-panel{
+        margin-top: 50px;
+    }
     
     &.bodymargin{
         margin-top: 100px;

@@ -72,7 +72,8 @@ const TableSF = ({
   const [checkboxIndex, setCheckboxIndex] = useState(null);
 
   const [columnOrder, setColumnOrder] = useState(columns.map((column) => column.key));
-  const [formData, setFormData] = useState({})
+  const [formData, setFormData] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filterOptions = [
     { key: "0", value: "Location" , icon:<GeoAlt/>},
@@ -101,14 +102,19 @@ const TableSF = ({
   const scrollToTop = () => {
     if (tableContainerRef.current) {
       tableContainerRef.current.scrollTop = 0;
+      tableContainerRef.current.scrollLeft = 0;
     }
   };
 
   const [show, setShow] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
+  useEffect(() => {
+    scrollToTop();
+  }, [currentPage]);
+
   return (
-    <Container css={TableSFCss} className="table-container">
+    <Container css={TableSFCss} className="table-container" ref={tableContainerRef}>
       {title && (
         <Container>
           <Row>
@@ -189,9 +195,7 @@ const TableSF = ({
                     </th>
                 )
               })}
-              {viewIcon && <th/>}
-              {editIcon && <th/>}
-              {deleteIcon && <th/>}
+              {viewIcon && editIcon && deleteIcon && <th/>}
             </tr>
           </thead>
         )}
@@ -210,9 +214,12 @@ const TableSF = ({
 
                   </td>
                 ))}
-                {viewIcon && <td width={1}><ViewTransaction/></td>}
-                {editIcon && <td width={1}><PencilSquare className="icon" onClick={() => {setShow(true)} }/></td>}
-                {deleteIcon && <td><Trash3 className="icon" onClick={() => {setShowDelete(true)}}/></td>}
+                {viewIcon && editIcon && deleteIcon && 
+                <td width={1}>
+                  <ViewTransaction/>
+                  <PencilSquare className="icon" onClick={() => {setShow(true)} }/>
+                  <Trash3 className="icon" onClick={() => {setShowDelete(true)}}/>
+                </td>}
               </tr>
             ))}
             
