@@ -5,6 +5,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import { Modal as BSModal } from "react-bootstrap";
 import ButtonSF from "styles/V2-ShaoFan/ButtonSF";
 import ModalFilterSFCss from "./ModalFilterSFCss";
+import { Save } from "react-bootstrap-icons";
 
 interface ModalProps {
   show: boolean;
@@ -41,7 +42,8 @@ const ModalFilterSF: React.FC<ModalProps> = ({
 
       <BSModal.Body>{children}</BSModal.Body>
 
-      <BSModal.Footer>
+      <BSModal.Footer  >
+        <ButtonSF label="Save Filter" iconLeft={<Save css={ModalFilterSFCss} className="icon-save"/>} onClick={()=>{}} css={ModalFilterSFCss} className="save-button"/>
         <ButtonSF label="Back" onClick={onBack}/>
         <ButtonSF label="Search" onClick={onProceed}/>
       </BSModal.Footer>

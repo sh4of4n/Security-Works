@@ -2,6 +2,7 @@
 
 import {
     Alarm,
+    ArrowClockwise,
     ArrowUpCircle,
     CalendarDate,
     Cash,
@@ -50,7 +51,7 @@ const V3BrowseScreenSF = () => {
 
     const [sortOrder, setSortOrder] = useState("asc");
     const [formData, setFormData] = useState({});
-    const [selectedData, setSelectedData] = useState({});
+    const [searchFormData, setSearchFormData] = useState({});
     const [addFormData, setAddFormData] = useState({});
     const [sortColumn, setSortColumn] = useState("");
 
@@ -91,31 +92,31 @@ const V3BrowseScreenSF = () => {
     ]
 
     const tableCol = [ 
-        { descriptions: "Bali, Selangor, MYS", date: "03/08/2022", time: "12.52", amount: "+ RM923.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479" , ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Transfer", date: "25/03/2022", time: "02.12", amount: "+ RM10.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Pahang, MYS", date: "30/12/2021", time: "08.32", amount: "- RM120.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Finexus Cafe W.Persekutuan, MYS", date: "16/11/2022", time: "11.02", amount: "- RM7.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Reload - FPX, MYS", date: "10/11/2022", time: "10.12", amount: "+ RM1000.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Ole-Ole Bali, Selangor, MYS", date: "03/08/2022", time: "12.52", amount: "+ RM923.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Transfer - DuitNow", date: "25/03/2022", time: "02.12", amount: "+ RM10.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Converse, Pahang, MYS", date: "30/12/2021", time: "08.32", amount: "- RM120.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: " MYS", date: "16/11/2022", time: "11.02", amount: "- RM7.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: " FPX, MYS", date: "10/11/2022", time: "10.12", amount: "+ RM1000.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Bali, Selangor, MYS", date: "03/08/2022", time: "12.52", amount: "+ RM923.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Transfer", date: "25/03/2022", time: "02.12", amount: "+ RM10.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Bali, Selangor, MYS", date: "03/08/2022", time: "12.52", amount: "+ RM923.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Transfer", date: "25/03/2022", time: "02.12", amount: "+ RM10.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Pahang, MYS", date: "30/12/2021", time: "08.32", amount: "- RM120.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Finexus Cafe W.Persekutuan, MYS", date: "16/11/2022", time: "11.02", amount: "- RM7.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Reload - FPX, MYS", date: "10/11/2022", time: "10.12", amount: "+ RM1000.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Ole-Ole Bali, Selangor, MYS", date: "03/08/2022", time: "12.52", amount: "+ RM923.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Transfer - DuitNow", date: "25/03/2022", time: "02.12", amount: "+ RM10.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Converse, Pahang, MYS", date: "30/12/2021", time: "08.32", amount: "- RM120.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: " MYS", date: "16/11/2022", time: "11.02", amount: "- RM7.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: " FPX, MYS", date: "10/11/2022", time: "10.12", amount: "+ RM1000.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Bali, Selangor, MYS", date: "03/08/2022", time: "12.52", amount: "+ RM923.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Transfer", date: "25/03/2022", time: "02.12", amount: "+ RM10.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved"},
-        { descriptions: "Pahang, MYS", date: "30/12/2021", time: "08.32", amount: "- RM120.00", test: "- RM7.00", try: "testtt", transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approved" }
+        { descriptions: "Bali, Selangor, MYS", date: "03/08/2022", time: "12.52", amount: "+ RM923.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479" , ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Transfer", date: "25/03/2022", time: "02.12", amount: "+ RM10.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Pahang, MYS", date: "30/12/2021", time: "08.32", amount: "- RM120.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Finexus Cafe W.Persekutuan, MYS", date: "16/11/2022", time: "11.02", amount: "- RM7.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Reload - FPX, MYS", date: "10/11/2022", time: "10.12", amount: "+ RM1000.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Ole-Ole Bali, Selangor, MYS", date: "03/08/2022", time: "12.52", amount: "+ RM923.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Transfer - DuitNow", date: "25/03/2022", time: "02.12", amount: "+ RM10.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Converse, Pahang, MYS", date: "30/12/2021", time: "08.32", amount: "- RM120.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: " MYS", date: "16/11/2022", time: "11.02", amount: "- RM7.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: " FPX, MYS", date: "10/11/2022", time: "10.12", amount: "+ RM1000.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Bali, Selangor, MYS", date: "03/08/2022", time: "12.52", amount: "+ RM923.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Transfer", date: "25/03/2022", time: "02.12", amount: "+ RM10.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Bali, Selangor, MYS", date: "03/08/2022", time: "12.52", amount: "+ RM923.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Transfer", date: "25/03/2022", time: "02.12", amount: "+ RM10.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Pahang, MYS", date: "30/12/2021", time: "08.32", amount: "- RM120.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Finexus Cafe W.Persekutuan, MYS", date: "16/11/2022", time: "11.02", amount: "- RM7.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Reload - FPX, MYS", date: "10/11/2022", time: "10.12", amount: "+ RM1000.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Ole-Ole Bali, Selangor, MYS", date: "03/08/2022", time: "12.52", amount: "+ RM923.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Transfer - DuitNow", date: "25/03/2022", time: "02.12", amount: "+ RM10.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Converse, Pahang, MYS", date: "30/12/2021", time: "08.32", amount: "- RM120.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: " MYS", date: "16/11/2022", time: "11.02", amount: "- RM7.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: " FPX, MYS", date: "10/11/2022", time: "10.12", amount: "+ RM1000.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Bali, Selangor, MYS", date: "03/08/2022", time: "12.52", amount: "+ RM923.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Transfer", date: "25/03/2022", time: "02.12", amount: "+ RM10.00", test: "- RM7.00", try: "testtt" , transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve"},
+        { descriptions: "Pahang, MYS", date: "30/12/2021", time: "08.32", amount: "- RM120.00", test: "- RM7.00", try: "testtt", transaction: "312391087872", testing:"2314535" , testing1:"234289479", ip:"190.344.213.123" , timestamp:"14:34" , approval:"Approve" }
     ]
 
     const getTableData = (tableCol, currentPage, rowsPerPage) => {
@@ -171,13 +172,13 @@ const V3BrowseScreenSF = () => {
         }));
       };
 
-      const handleSelectedOptions = (selectedValue:any) => {
-        console.log("Selected option:", selectedValue);
+      const handleSelectedOptions = (selectedOptions:any) => {
+        console.log("Selected option:", selectedOptions);
       }
 
 
-      const handleSearchOptions = (selectedOptions:any) => {
-        setSelectedData(selectedOptions);
+      const handleSearchOptions = (selectedValue:any) => {
+        setSearchFormData(selectedValue);
       }
 
       const handleScrollToTop = () => {
@@ -185,6 +186,10 @@ const V3BrowseScreenSF = () => {
           tableContainerRef.current.scrollTop = 0;
           tableContainerRef.current.scrollLeft = 0;
         }
+      };
+
+      const handleReloadPage = () => {
+        window.location.reload();
       };
 
       useEffect(() => {
@@ -228,6 +233,14 @@ const V3BrowseScreenSF = () => {
                     onClick={() => { setShow(true) }}
                     css={V3BrowseScreenSFCss}
                     className="filterbutton"
+                />
+
+                <ButtonSF 
+                    label={""}
+                    iconLeft={<ArrowClockwise/>} 
+                    onClick={handleReloadPage}
+                    css={V3BrowseScreenSFCss}
+                    className="reloadbutton"                
                 />
                 {/* <AdvancedInput
                     css={V3BrowseScreenSFCss(theme)}
@@ -315,11 +328,12 @@ const V3BrowseScreenSF = () => {
                 setShow={setShowSearchModal}
                 headerTitle="Choose field to search by"
                 css={ModalSearchSFCss}
+                formData={searchFormData}
                 className="modal-search"
                 onBack={()=>setShowSearchModal(false)}
                 onProceed={()=>setShowSelectedSearch(true)}
-                selectedData={selectedData}
-                handleSelectedOption={handleSearchOptions}
+                selecteddata={selectedOptions}
+                handleselectedoption={handleSearchOptions}
             >
                 <Container >
                 <CheckboxSF 
@@ -336,17 +350,18 @@ const V3BrowseScreenSF = () => {
                 className="modal-selected"
                 onBack={()=>setShowSelectedSearch(false)}
                 headerTitle="Search by"
-                selectedData={selectedData}
-                handleSelectedOption={handleSearchOptions}
+                formData={searchFormData}
+                selecteddata={setSelectedOptions}
+                handleselectedoption={handleSearchOptions}
             >
                 <form>
                 {filterOptions
-            //.filter((option) => selectedData.includes(option.value))
+            //.filter((key) => selectedOptions.includes(key.value))
             .map(({ key, value, icon }) => (
               <Container key={key}>
                 <InputSF
                   label={value.toString()}
-                  value={addFormData[key] || ""}
+                  value={searchFormData[value]}
                   iconLeft={icon}
                   className="input-field"
                   onChange={(newValue) => handleAddInputChange(key, newValue)}

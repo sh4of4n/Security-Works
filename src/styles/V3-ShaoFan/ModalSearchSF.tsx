@@ -14,8 +14,9 @@ interface ModalProps {
   children?: JSX.Element | JSX.Element[];
   className?: string;
   headerTitle?: string;
-  selectedData?: object;
-  handleSelectedOption?: (value: string) => void;
+  selecteddata?: object;
+  formData?: object;
+  handleselectedoption?: (value: string) => void;
 }
 
 const ModalSearchSF: React.FC<ModalProps> = ({
@@ -26,8 +27,9 @@ const ModalSearchSF: React.FC<ModalProps> = ({
   children,
   className,
   headerTitle,
-  selectedData,
-  handleSelectedOption,
+  selecteddata,
+  formData,
+  handleselectedoption,
 }) => {
 
   const onHide = () => {
@@ -40,8 +42,9 @@ const ModalSearchSF: React.FC<ModalProps> = ({
       onHide={onHide}
       className={className}
       centered
-      selectedData={selectedData}
-      handleSelectedOption={handleSelectedOption}
+      formData={formData}
+      selecteddata={selecteddata}
+      handleSelectedOption={handleselectedoption}
     >
       <BSModal.Header closeButton>{headerTitle}</BSModal.Header>
 

@@ -215,10 +215,10 @@ const TableSF = ({
                   </td>
                 ))}
                 {viewIcon && editIcon && deleteIcon && 
-                <td width={1}>
-                  <ViewTransaction/>
-                  <PencilSquare className="icon" onClick={() => {setShow(true)} }/>
-                  <Trash3 className="icon" onClick={() => {setShowDelete(true)}}/>
+                <td css={TableSFCss} className="cell" width={1}>
+                  <ViewTransaction css={TableSFCss} className="icon"/>
+                  <PencilSquare css={TableSFCss} className="icon" onClick={() => {setShow(true)} }/>
+                  <Trash3 css={TableSFCss} className="icon" onClick={() => {setShowDelete(true)}}/>
                 </td>}
               </tr>
             ))}

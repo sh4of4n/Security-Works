@@ -6,10 +6,9 @@ const TableSFCss = (theme: Theme) => css`
     color:${theme.txt};
 
     &.table-container{
-        max-height: 250px;
+        max-height: 270px;
         overflow-y: auto;
         overflow-x: auto;
-        max-width: 1300px;
     }
 
     &. table-bg {
@@ -25,7 +24,7 @@ const TableSFCss = (theme: Theme) => css`
     }
 
     &.container-margin{
-        margin-top: 110px;
+        margin-top: 100px;
     }
 
     &.mb-0 thead th{
@@ -55,7 +54,7 @@ const TableSFCss = (theme: Theme) => css`
     }
 
     &.table-container .mb-0 th:first-child,
-    &.table-container .mb-0 th:last-child,{
+    &.table-container .mb-0 th:last-child {
         z-index: 1;
     }
 
@@ -65,13 +64,18 @@ const TableSFCss = (theme: Theme) => css`
     left: 0; 
     }
     
-
     &.table-container .mb-0 th:last-child,
     &.table-container .mb-0 td:last-child {
     position: sticky;
     right: 0; 
+    border: 0 solid black;
+    border-right: 1px solid transparent;
     }
 
+
+    &.icon{
+        margin: 5px;
+    }
       
 `;
 

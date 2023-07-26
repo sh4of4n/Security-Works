@@ -16,6 +16,16 @@ const ModalFilterSFCss = (theme: Theme) => css`
         font-size: 20px;
     }
 
+    &.save-button{
+        margin-right: 120px;
+        color: white;
+    }
+
+    &.icon-save{
+        color: white;
+        margin-right: 5px;
+    }
+
 `;
 
 export default ModalFilterSFCss;

@@ -31,6 +31,12 @@ const V2BrowseScreenSFCss = (theme: Theme) => css`
         margin-right: 10px;
     }
 
+    &.reloadbutton{
+        float: right;
+        color: white;
+        margin-right: 10px;
+    }
+
     &.top-panel{
         margin-top: 50px;
     }
@@ -46,7 +52,7 @@ const V2BrowseScreenSFCss = (theme: Theme) => css`
     &.container-page{
         width: 350px;
         left: 70px;
-        bottom: 120px;
+        bottom: 110px;
         position: fixed;
     }
 

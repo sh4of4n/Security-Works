@@ -26,7 +26,7 @@ import {
 import { ViewTransaction } from "./Images";
 import Checkbox from "./Checkbox";
 import TableCss from "styles/components/TableCss";
-//import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 export interface TableProps {
   columns: Array<TableColumn>;
@@ -111,7 +111,7 @@ const Table = ({
         {columns && (
           <>
             {draggable ? (
-              {/* <DragDropContext onDragEnd={handleColumnDragEnd}>
+              <DragDropContext onDragEnd={handleColumnDragEnd}>
                 <Droppable
                   droppableId="table-column-droppable"
                   direction="horizontal"
@@ -210,7 +210,7 @@ const Table = ({
                     </thead>
                   )}
                 </Droppable>
-              </DragDropContext> */}
+              </DragDropContext>
             ) : (
               <thead>
                 <tr>
