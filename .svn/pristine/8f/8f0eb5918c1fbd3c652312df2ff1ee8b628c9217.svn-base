@@ -19,11 +19,6 @@ const TableCss = () => css`
     color: rgb(19, 77, 163);
   }
 
-  & td{
-    font-size: 0.85rem;
-    padding: 0.7rem 1rem;
-  }
-
   & tr:nth-of-type(even) td{
     background: #E8F4FF;
   }
@@ -36,7 +31,7 @@ const TableCss = () => css`
     color: rgb(19, 77, 163);
   }
 
-  & th{
+  & .table-ctn th{
     background: #ececec;
     font-weight: 600;
     padding: 0.8rem 1rem;

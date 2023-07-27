@@ -9,6 +9,12 @@ const TableSFCss = (theme: Theme) => css`
         max-height: 270px;
         overflow-y: auto;
         overflow-x: auto;
+        padding: 0;
+    }
+
+    &.table-container table {
+        border-right: 0 solid black;
+        
     }
 
     &. table-bg {
@@ -69,7 +75,8 @@ const TableSFCss = (theme: Theme) => css`
     position: sticky;
     right: 0; 
     border: 0 solid black;
-    border-right: 1px solid transparent;
+    border-right: 0 solid black;
+
     }
 
 

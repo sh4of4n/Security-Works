@@ -242,14 +242,6 @@ const V3BrowseScreenSF = () => {
                     css={V3BrowseScreenSFCss}
                     className="reloadbutton"                
                 />
-                {/* <AdvancedInput
-                    css={V3BrowseScreenSFCss(theme)}
-                    className="searchbar"
-                    placeholder="Seach Here"
-                    value={pwd}
-                    leftIcon={<Search />}
-                    onChange={(e) => { setPwd(e) }}
-                /> */}
 
             
             </Container>
