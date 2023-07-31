@@ -192,6 +192,12 @@ const V3BrowseScreenSF = () => {
         window.location.reload();
       };
 
+      const handleRowsPerPageChange = () =>{
+        setCurrentPage(1);
+        tableContainerRef.current.scrollTop = 0;
+        tableContainerRef.current.scrollLeft = 0;
+      };
+
       useEffect(() => {
         const data = getTableData(originalTableCol.current, currentPage, rowsPerPage);
         setCurrentData(data);
@@ -272,9 +278,9 @@ const V3BrowseScreenSF = () => {
 
                 <Dropdown css={V3BrowseScreenSFCss} className="container-dropdown">
                 <select value={rowsPerPage} onChange={(e) => setRowsPerPage(parseInt(e.target.value))}>
-                    <option value={5}>5 rows</option>
-                    <option value={10}>10 rows</option>
-                    <option value={15}>15 rows</option>
+                    <option value={5} onClick={handleRowsPerPageChange}>5 rows</option>
+                    <option value={10} onClick={handleRowsPerPageChange}>10 rows</option>
+                    <option value={15} onClick={handleRowsPerPageChange}>15 rows</option>
                 </select>
                 </Dropdown>
 
